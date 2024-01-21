@@ -1,6 +1,6 @@
 import dynamoDBClient from "../model";
-import TodoServerice from "./todosService"
+import PersonServerice from "./personsService"
 
-const todoService = new TodoServerice(dynamoDBClient());
+const personService = new PersonServerice(dynamoDBClient());
 
-export default todoService;
+export default personService;

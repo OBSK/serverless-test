@@ -1,71 +1,70 @@
 import { DocumentClient } from "aws-sdk/clients/dynamodb";
 
-import Todo from "../model/Todo";
+import Person from "../model/Person";
 
-export default class TodoServerice {
+export default class PersonServerice {
 
-    private Tablename: string = "TodosTable";
+    private Tablename: string = "PersonsTable";
 
     constructor(private docClient: DocumentClient) { }
 
-    async getAllTodos(): Promise<Todo[]> {
-        const todos = await this.docClient.scan({
+    async getAllPersons(): Promise<Person[]> {
+        const persons = await this.docClient.scan({
             TableName: this.Tablename,
         }).promise()
-        return todos.Items as Todo[];
+        return persons.Items as Person[];
     }
 
-    async createTodo(todo: Todo): Promise<Todo> {
+    async createPerson(person: Person): Promise<Person> {
         await this.docClient.put({
             TableName: this.Tablename,
-            Item: todo
+            Item: person
         }).promise()
-        return todo as Todo;
+        return person as Person;
 
     }
 
-    async getTodo(id: string): Promise<any> {
+    async getPerson(id: string): Promise<any> {
 
-        const todo = await this.docClient.get({
+        const person = await this.docClient.get({
             TableName: this.Tablename,
             Key: {
-                todosId: id
+                personId: id
             }
         }).promise()
-        if (!todo.Item) {
+        if (!person.Item) {
             throw new Error("Id does not exit");
         }
-        return todo.Item as Todo;
+        return person.Item as Person;
 
     }
 
-    async updateTodo(id: string, todo: Partial<Todo>): Promise<Todo> {
+    async updatePerson(id: string, person: Partial<Person>): Promise<Person> {
         const updated = await this.docClient
             .update({
                 TableName: this.Tablename,
-                Key: { todosId: id },
+                Key: { personId: id },
                 UpdateExpression:
                     "set #status = :status",
                 ExpressionAttributeNames: {
                     "#status": "status",
                 },
                 ExpressionAttributeValues: {
-                    ":status": todo.status,
+                    ":status": person.status,
                 },
                 ReturnValues: "ALL_NEW",
             })
             .promise();
 
-        return updated.Attributes as Todo;
+        return updated.Attributes as Person;
     }
 
-    async deleteTodo(id: string): Promise<any> {
+    async deletePerson(id: string): Promise<any> {
         return await this.docClient.delete({
             TableName: this.Tablename,
             Key: {
-                todosId: id
+                personId: id
             }
         }).promise()
-
     }
 }

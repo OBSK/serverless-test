@@ -1,0 +1,21 @@
+export const dataTranslate = {
+    "eye_color": "color_ojos",
+    "status": "estado",
+    "homeworld": "mundo",
+    "created": "creado_swapi",
+    "birth_year": "fecha_anio",
+    "hair_color": "color_cabello",
+    "createdAt": "creado_el",
+    "skin_color": "color_piel",
+    "url": "web",
+    "films": "peliculas",
+    "name": "nombre",
+    "gender": "Genero",
+    "species": "especies",
+    "mass": "masa",
+    "height": "altura",
+    "edited": "editado",
+    "vehicles": "vehiculos",
+    "starships": "naves",
+    "personId": "id_persona"
+}

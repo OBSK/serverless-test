@@ -71,34 +71,40 @@
         }
       }
     },
-    "GetAllTodosLogGroup": {
+    "GetAllPersonsLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
-        "LogGroupName": "/aws/lambda/aws-serverless-typescript-api-dev-getAllTodos"
+        "LogGroupName": "/aws/lambda/aws-serverless-typescript-api-dev-getAllPersons"
       }
     },
-    "CreateTodoLogGroup": {
+    "CreatePersonLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
-        "LogGroupName": "/aws/lambda/aws-serverless-typescript-api-dev-createTodo"
+        "LogGroupName": "/aws/lambda/aws-serverless-typescript-api-dev-createPerson"
       }
     },
-    "GetTodoLogGroup": {
+    "GetPersonLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
-        "LogGroupName": "/aws/lambda/aws-serverless-typescript-api-dev-getTodo"
+        "LogGroupName": "/aws/lambda/aws-serverless-typescript-api-dev-getPerson"
       }
     },
-    "UpdateTodoLogGroup": {
+    "UpdatePersonLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
-        "LogGroupName": "/aws/lambda/aws-serverless-typescript-api-dev-updateTodo"
+        "LogGroupName": "/aws/lambda/aws-serverless-typescript-api-dev-updatePerson"
       }
     },
-    "DeleteTodoLogGroup": {
+    "DeletePersonLogGroup": {
       "Type": "AWS::Logs::LogGroup",
       "Properties": {
-        "LogGroupName": "/aws/lambda/aws-serverless-typescript-api-dev-deleteTodo"
+        "LogGroupName": "/aws/lambda/aws-serverless-typescript-api-dev-deletePerson"
+      }
+    },
+    "SwapiLogGroup": {
+      "Type": "AWS::Logs::LogGroup",
+      "Properties": {
+        "LogGroupName": "/aws/lambda/aws-serverless-typescript-api-dev-swapi"
       }
     },
     "IamRoleLambdaExecution": {
@@ -139,7 +145,8 @@
                   "Effect": "Allow",
                   "Action": [
                     "logs:CreateLogStream",
-                    "logs:CreateLogGroup"
+                    "logs:CreateLogGroup",
+                    "logs:TagResource"
                   ],
                   "Resource": [
                     {
@@ -169,7 +176,7 @@
                     "dynamodb:UpdateItem",
                     "dynamodb:DeleteItem"
                   ],
-                  "Resource": "arn:aws:dynamodb:us-west-2:*:table/TodosTable2"
+                  "Resource": "arn:aws:dynamodb:us-west-2:*:table/PersonsTable"
                 }
               ]
             }
@@ -191,18 +198,18 @@
         }
       }
     },
-    "GetAllTodosLambdaFunction": {
+    "GetAllPersonsLambdaFunction": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/aws-serverless-typescript-api/dev/1643643481223-2022-01-31T15:38:01.223Z/getAllTodos.zip"
+          "S3Key": "serverless/aws-serverless-typescript-api/dev/1705878906554-2024-01-21T23:15:06.554Z/getAllPersons.zip"
         },
-        "Handler": "src/functions/todo/handler.getAllTodos",
+        "Handler": "src/functions/person/handler.getAllPersons",
         "Runtime": "nodejs14.x",
-        "FunctionName": "aws-serverless-typescript-api-dev-getAllTodos",
+        "FunctionName": "aws-serverless-typescript-api-dev-getAllPersons",
         "MemorySize": 1024,
         "Timeout": 6,
         "Environment": {
@@ -219,21 +226,21 @@
         }
       },
       "DependsOn": [
-        "GetAllTodosLogGroup"
+        "GetAllPersonsLogGroup"
       ]
     },
-    "CreateTodoLambdaFunction": {
+    "CreatePersonLambdaFunction": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/aws-serverless-typescript-api/dev/1643643481223-2022-01-31T15:38:01.223Z/createTodo.zip"
+          "S3Key": "serverless/aws-serverless-typescript-api/dev/1705878906554-2024-01-21T23:15:06.554Z/createPerson.zip"
         },
-        "Handler": "src/functions/todo/handler.createTodo",
+        "Handler": "src/functions/person/handler.createPerson",
         "Runtime": "nodejs14.x",
-        "FunctionName": "aws-serverless-typescript-api-dev-createTodo",
+        "FunctionName": "aws-serverless-typescript-api-dev-createPerson",
         "MemorySize": 1024,
         "Timeout": 6,
         "Environment": {
@@ -250,21 +257,21 @@
         }
       },
       "DependsOn": [
-        "CreateTodoLogGroup"
+        "CreatePersonLogGroup"
       ]
     },
-    "GetTodoLambdaFunction": {
+    "GetPersonLambdaFunction": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/aws-serverless-typescript-api/dev/1643643481223-2022-01-31T15:38:01.223Z/getTodo.zip"
+          "S3Key": "serverless/aws-serverless-typescript-api/dev/1705878906554-2024-01-21T23:15:06.554Z/getPerson.zip"
         },
-        "Handler": "src/functions/todo/handler.getTodo",
+        "Handler": "src/functions/person/handler.getPerson",
         "Runtime": "nodejs14.x",
-        "FunctionName": "aws-serverless-typescript-api-dev-getTodo",
+        "FunctionName": "aws-serverless-typescript-api-dev-getPerson",
         "MemorySize": 1024,
         "Timeout": 6,
         "Environment": {
@@ -281,21 +288,21 @@
         }
       },
       "DependsOn": [
-        "GetTodoLogGroup"
+        "GetPersonLogGroup"
       ]
     },
-    "UpdateTodoLambdaFunction": {
+    "UpdatePersonLambdaFunction": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/aws-serverless-typescript-api/dev/1643643481223-2022-01-31T15:38:01.223Z/updateTodo.zip"
+          "S3Key": "serverless/aws-serverless-typescript-api/dev/1705878906554-2024-01-21T23:15:06.554Z/updatePerson.zip"
         },
-        "Handler": "src/functions/todo/handler.updateTodo",
+        "Handler": "src/functions/person/handler.updatePerson",
         "Runtime": "nodejs14.x",
-        "FunctionName": "aws-serverless-typescript-api-dev-updateTodo",
+        "FunctionName": "aws-serverless-typescript-api-dev-updatePerson",
         "MemorySize": 1024,
         "Timeout": 6,
         "Environment": {
@@ -312,21 +319,21 @@
         }
       },
       "DependsOn": [
-        "UpdateTodoLogGroup"
+        "UpdatePersonLogGroup"
       ]
     },
-    "DeleteTodoLambdaFunction": {
+    "DeletePersonLambdaFunction": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/aws-serverless-typescript-api/dev/1643643481223-2022-01-31T15:38:01.223Z/deleteTodo.zip"
+          "S3Key": "serverless/aws-serverless-typescript-api/dev/1705878906554-2024-01-21T23:15:06.554Z/deletePerson.zip"
         },
-        "Handler": "src/functions/todo/handler.deleteTodo",
+        "Handler": "src/functions/person/handler.deletePerson",
         "Runtime": "nodejs14.x",
-        "FunctionName": "aws-serverless-typescript-api-dev-deleteTodo",
+        "FunctionName": "aws-serverless-typescript-api-dev-deletePerson",
         "MemorySize": 1024,
         "Timeout": 6,
         "Environment": {
@@ -343,57 +350,98 @@
         }
       },
       "DependsOn": [
-        "DeleteTodoLogGroup"
+        "DeletePersonLogGroup"
       ]
     },
-    "GetAllTodosLambdaVersionp0CdOAiYHjhgPjyDDwjPIiT67HNeYsAeWdmrnmD0": {
+    "SwapiLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "ServerlessDeploymentBucket"
+          },
+          "S3Key": "serverless/aws-serverless-typescript-api/dev/1705878906554-2024-01-21T23:15:06.554Z/swapi.zip"
+        },
+        "Handler": "src/functions/person/handler.swapi",
+        "Runtime": "nodejs14.x",
+        "FunctionName": "aws-serverless-typescript-api-dev-swapi",
+        "MemorySize": 1024,
+        "Timeout": 6,
+        "Environment": {
+          "Variables": {
+            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
+            "NODE_OPTIONS": "--enable-source-maps --stack-trace-limit=1000"
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "IamRoleLambdaExecution",
+            "Arn"
+          ]
+        }
+      },
+      "DependsOn": [
+        "SwapiLogGroup"
+      ]
+    },
+    "GetAllPersonsLambdaVersionO1IfEWOEDVDh1k7JTEd2dsZzr5yDbYRU92GMAA2F4w": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
-          "Ref": "GetAllTodosLambdaFunction"
+          "Ref": "GetAllPersonsLambdaFunction"
         },
-        "CodeSha256": "AHKLBlAdG9V4RT0g6vJy38/FOlBGpk331Fc0OpgflVU="
+        "CodeSha256": "kTmix4V8YaFJg/yIPO1SOtlA6ZOpvBFcJG/6CxDdc9c="
       }
     },
-    "CreateTodoLambdaVersionXASP5192wCR21kDeCZSW2spvZzTajrBSkq3BwEdYhU": {
+    "CreatePersonLambdaVersionP6trV8EySbq8ieVA6qYdjfxk2mqweCRoqNhxSJBiN4": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
-          "Ref": "CreateTodoLambdaFunction"
+          "Ref": "CreatePersonLambdaFunction"
         },
-        "CodeSha256": "AHKLBlAdG9V4RT0g6vJy38/FOlBGpk331Fc0OpgflVU="
+        "CodeSha256": "kTmix4V8YaFJg/yIPO1SOtlA6ZOpvBFcJG/6CxDdc9c="
       }
     },
-    "GetTodoLambdaVersionE8UrAWLkP0Xh97xb7Pk6lktuR6dCIdZy7MEiRC18zA": {
+    "GetPersonLambdaVersionA7ZXffCmxcU6kGd7d9BZWXrktl2KIJugK4ahOm8sVEA": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
-          "Ref": "GetTodoLambdaFunction"
+          "Ref": "GetPersonLambdaFunction"
         },
-        "CodeSha256": "AHKLBlAdG9V4RT0g6vJy38/FOlBGpk331Fc0OpgflVU="
+        "CodeSha256": "kTmix4V8YaFJg/yIPO1SOtlA6ZOpvBFcJG/6CxDdc9c="
       }
     },
-    "UpdateTodoLambdaVersionVDAD1c1Pj3YQdlUHsBhnKhoPlfMmuYkH5Agsqso": {
+    "UpdatePersonLambdaVersione9POOYbAjZckuD44NdHdcEQF8ZncLIMeh4DXUEA": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
-          "Ref": "UpdateTodoLambdaFunction"
+          "Ref": "UpdatePersonLambdaFunction"
         },
-        "CodeSha256": "AHKLBlAdG9V4RT0g6vJy38/FOlBGpk331Fc0OpgflVU="
+        "CodeSha256": "kTmix4V8YaFJg/yIPO1SOtlA6ZOpvBFcJG/6CxDdc9c="
       }
     },
-    "DeleteTodoLambdaVersionlgAsU51djBs58IU60SiryGSQF1gcQovPswjRv2Hvi4": {
+    "DeletePersonLambdaVersionfW53KqPpbs1iQTtUsBdqsve2Ecf3ihso3dHc7JAXoQ": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
-          "Ref": "DeleteTodoLambdaFunction"
+          "Ref": "DeletePersonLambdaFunction"
         },
-        "CodeSha256": "AHKLBlAdG9V4RT0g6vJy38/FOlBGpk331Fc0OpgflVU="
+        "CodeSha256": "kTmix4V8YaFJg/yIPO1SOtlA6ZOpvBFcJG/6CxDdc9c="
+      }
+    },
+    "SwapiLambdaVersionf9wzHJ7n3ztXf96M8IwmmmV0S57kSU1zxuHBxpEuIFg": {
+      "Type": "AWS::Lambda::Version",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "SwapiLambdaFunction"
+        },
+        "CodeSha256": "kTmix4V8YaFJg/yIPO1SOtlA6ZOpvBFcJG/6CxDdc9c="
       }
     },
     "ApiGatewayRestApi": {
@@ -409,7 +457,7 @@
         "MinimumCompressionSize": 1024
       }
     },
-    "ApiGatewayResourceTodo": {
+    "ApiGatewayResourcePerson": {
       "Type": "AWS::ApiGateway::Resource",
       "Properties": {
         "ParentId": {
@@ -418,17 +466,17 @@
             "RootResourceId"
           ]
         },
-        "PathPart": "todo",
+        "PathPart": "person",
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
         }
       }
     },
-    "ApiGatewayResourceTodoIdVar": {
+    "ApiGatewayResourcePersonIdVar": {
       "Type": "AWS::ApiGateway::Resource",
       "Properties": {
         "ParentId": {
-          "Ref": "ApiGatewayResourceTodo"
+          "Ref": "ApiGatewayResourcePerson"
         },
         "PathPart": "{id}",
         "RestApiId": {
@@ -436,13 +484,85 @@
         }
       }
     },
-    "ApiGatewayMethodTodoGet": {
+    "ApiGatewayResourceSwapi": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Fn::GetAtt": [
+            "ApiGatewayRestApi",
+            "RootResourceId"
+          ]
+        },
+        "PathPart": "swapi",
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
+    "ApiGatewayResourceSwapiIdVar": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Ref": "ApiGatewayResourceSwapi"
+        },
+        "PathPart": "{id}",
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
+    "ApiGatewayMethodPersonOptions": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "AuthorizationType": "NONE",
+        "HttpMethod": "OPTIONS",
+        "MethodResponses": [
+          {
+            "StatusCode": "200",
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Origin": true,
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Methods": true
+            },
+            "ResponseModels": {}
+          }
+        ],
+        "RequestParameters": {},
+        "Integration": {
+          "Type": "MOCK",
+          "RequestTemplates": {
+            "application/json": "{statusCode:200}"
+          },
+          "ContentHandling": "CONVERT_TO_TEXT",
+          "IntegrationResponses": [
+            {
+              "StatusCode": "200",
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET'"
+              },
+              "ResponseTemplates": {
+                "application/json": ""
+              }
+            }
+          ]
+        },
+        "ResourceId": {
+          "Ref": "ApiGatewayResourcePerson"
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        }
+      }
+    },
+    "ApiGatewayMethodPersonGet": {
       "Type": "AWS::ApiGateway::Method",
       "Properties": {
         "HttpMethod": "GET",
         "RequestParameters": {},
         "ResourceId": {
-          "Ref": "ApiGatewayResourceTodo"
+          "Ref": "ApiGatewayResourcePerson"
         },
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
@@ -467,7 +587,7 @@
                 ":lambda:path/2015-03-31/functions/",
                 {
                   "Fn::GetAtt": [
-                    "GetAllTodosLambdaFunction",
+                    "GetAllPersonsLambdaFunction",
                     "Arn"
                   ]
                 },
@@ -479,16 +599,16 @@
         "MethodResponses": []
       },
       "DependsOn": [
-        "GetAllTodosLambdaPermissionApiGateway"
+        "GetAllPersonsLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayMethodTodoPost": {
+    "ApiGatewayMethodPersonPost": {
       "Type": "AWS::ApiGateway::Method",
       "Properties": {
         "HttpMethod": "POST",
         "RequestParameters": {},
         "ResourceId": {
-          "Ref": "ApiGatewayResourceTodo"
+          "Ref": "ApiGatewayResourcePerson"
         },
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
@@ -513,7 +633,7 @@
                 ":lambda:path/2015-03-31/functions/",
                 {
                   "Fn::GetAtt": [
-                    "CreateTodoLambdaFunction",
+                    "CreatePersonLambdaFunction",
                     "Arn"
                   ]
                 },
@@ -525,16 +645,16 @@
         "MethodResponses": []
       },
       "DependsOn": [
-        "CreateTodoLambdaPermissionApiGateway"
+        "CreatePersonLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayMethodTodoIdVarGet": {
+    "ApiGatewayMethodPersonIdVarGet": {
       "Type": "AWS::ApiGateway::Method",
       "Properties": {
         "HttpMethod": "GET",
         "RequestParameters": {},
         "ResourceId": {
-          "Ref": "ApiGatewayResourceTodoIdVar"
+          "Ref": "ApiGatewayResourcePersonIdVar"
         },
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
@@ -559,7 +679,7 @@
                 ":lambda:path/2015-03-31/functions/",
                 {
                   "Fn::GetAtt": [
-                    "GetTodoLambdaFunction",
+                    "GetPersonLambdaFunction",
                     "Arn"
                   ]
                 },
@@ -571,16 +691,16 @@
         "MethodResponses": []
       },
       "DependsOn": [
-        "GetTodoLambdaPermissionApiGateway"
+        "GetPersonLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayMethodTodoIdVarPut": {
+    "ApiGatewayMethodPersonIdVarPut": {
       "Type": "AWS::ApiGateway::Method",
       "Properties": {
         "HttpMethod": "PUT",
         "RequestParameters": {},
         "ResourceId": {
-          "Ref": "ApiGatewayResourceTodoIdVar"
+          "Ref": "ApiGatewayResourcePersonIdVar"
         },
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
@@ -605,7 +725,7 @@
                 ":lambda:path/2015-03-31/functions/",
                 {
                   "Fn::GetAtt": [
-                    "UpdateTodoLambdaFunction",
+                    "UpdatePersonLambdaFunction",
                     "Arn"
                   ]
                 },
@@ -617,16 +737,16 @@
         "MethodResponses": []
       },
       "DependsOn": [
-        "UpdateTodoLambdaPermissionApiGateway"
+        "UpdatePersonLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayMethodTodoIdVarDelete": {
+    "ApiGatewayMethodPersonIdVarDelete": {
       "Type": "AWS::ApiGateway::Method",
       "Properties": {
         "HttpMethod": "DELETE",
         "RequestParameters": {},
         "ResourceId": {
-          "Ref": "ApiGatewayResourceTodoIdVar"
+          "Ref": "ApiGatewayResourcePersonIdVar"
         },
         "RestApiId": {
           "Ref": "ApiGatewayRestApi"
@@ -651,7 +771,7 @@
                 ":lambda:path/2015-03-31/functions/",
                 {
                   "Fn::GetAtt": [
-                    "DeleteTodoLambdaFunction",
+                    "DeletePersonLambdaFunction",
                     "Arn"
                   ]
                 },
@@ -663,10 +783,56 @@
         "MethodResponses": []
       },
       "DependsOn": [
-        "DeleteTodoLambdaPermissionApiGateway"
+        "DeletePersonLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1643643477891": {
+    "ApiGatewayMethodSwapiIdVarGet": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "GET",
+        "RequestParameters": {},
+        "ResourceId": {
+          "Ref": "ApiGatewayResourceSwapiIdVar"
+        },
+        "RestApiId": {
+          "Ref": "ApiGatewayRestApi"
+        },
+        "ApiKeyRequired": false,
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "SwapiLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "MethodResponses": []
+      },
+      "DependsOn": [
+        "SwapiLambdaPermissionApiGateway"
+      ]
+    },
+    "ApiGatewayDeployment1705878901602": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -675,19 +841,21 @@
         "StageName": "dev"
       },
       "DependsOn": [
-        "ApiGatewayMethodTodoGet",
-        "ApiGatewayMethodTodoPost",
-        "ApiGatewayMethodTodoIdVarGet",
-        "ApiGatewayMethodTodoIdVarPut",
-        "ApiGatewayMethodTodoIdVarDelete"
+        "ApiGatewayMethodPersonOptions",
+        "ApiGatewayMethodPersonGet",
+        "ApiGatewayMethodPersonPost",
+        "ApiGatewayMethodPersonIdVarGet",
+        "ApiGatewayMethodPersonIdVarPut",
+        "ApiGatewayMethodPersonIdVarDelete",
+        "ApiGatewayMethodSwapiIdVarGet"
       ]
     },
-    "GetAllTodosLambdaPermissionApiGateway": {
+    "GetAllPersonsLambdaPermissionApiGateway": {
       "Type": "AWS::Lambda::Permission",
       "Properties": {
         "FunctionName": {
           "Fn::GetAtt": [
-            "GetAllTodosLambdaFunction",
+            "GetAllPersonsLambdaFunction",
             "Arn"
           ]
         },
@@ -719,12 +887,12 @@
         }
       }
     },
-    "CreateTodoLambdaPermissionApiGateway": {
+    "CreatePersonLambdaPermissionApiGateway": {
       "Type": "AWS::Lambda::Permission",
       "Properties": {
         "FunctionName": {
           "Fn::GetAtt": [
-            "CreateTodoLambdaFunction",
+            "CreatePersonLambdaFunction",
             "Arn"
           ]
         },
@@ -756,12 +924,12 @@
         }
       }
     },
-    "GetTodoLambdaPermissionApiGateway": {
+    "GetPersonLambdaPermissionApiGateway": {
       "Type": "AWS::Lambda::Permission",
       "Properties": {
         "FunctionName": {
           "Fn::GetAtt": [
-            "GetTodoLambdaFunction",
+            "GetPersonLambdaFunction",
             "Arn"
           ]
         },
@@ -793,12 +961,12 @@
         }
       }
     },
-    "UpdateTodoLambdaPermissionApiGateway": {
+    "UpdatePersonLambdaPermissionApiGateway": {
       "Type": "AWS::Lambda::Permission",
       "Properties": {
         "FunctionName": {
           "Fn::GetAtt": [
-            "UpdateTodoLambdaFunction",
+            "UpdatePersonLambdaFunction",
             "Arn"
           ]
         },
@@ -830,12 +998,12 @@
         }
       }
     },
-    "DeleteTodoLambdaPermissionApiGateway": {
+    "DeletePersonLambdaPermissionApiGateway": {
       "Type": "AWS::Lambda::Permission",
       "Properties": {
         "FunctionName": {
           "Fn::GetAtt": [
-            "DeleteTodoLambdaFunction",
+            "DeletePersonLambdaFunction",
             "Arn"
           ]
         },
@@ -867,19 +1035,56 @@
         }
       }
     },
-    "TodosTable": {
+    "SwapiLambdaPermissionApiGateway": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "SwapiLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "/*/*"
+            ]
+          ]
+        }
+      }
+    },
+    "PersonsTable": {
       "Type": "AWS::DynamoDB::Table",
       "Properties": {
-        "TableName": "TodosTable2",
+        "TableName": "PersonsTable",
         "AttributeDefinitions": [
           {
-            "AttributeName": "todosId",
+            "AttributeName": "personId",
             "AttributeType": "S"
           }
         ],
         "KeySchema": [
           {
-            "AttributeName": "todosId",
+            "AttributeName": "personId",
             "KeyType": "HASH"
           }
         ],
@@ -899,49 +1104,58 @@
         "Name": "sls-aws-serverless-typescript-api-dev-ServerlessDeploymentBucketName"
       }
     },
-    "GetAllTodosLambdaFunctionQualifiedArn": {
+    "GetAllPersonsLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GetAllTodosLambdaVersionp0CdOAiYHjhgPjyDDwjPIiT67HNeYsAeWdmrnmD0"
+        "Ref": "GetAllPersonsLambdaVersionO1IfEWOEDVDh1k7JTEd2dsZzr5yDbYRU92GMAA2F4w"
       },
       "Export": {
-        "Name": "sls-aws-serverless-typescript-api-dev-GetAllTodosLambdaFunctionQualifiedArn"
+        "Name": "sls-aws-serverless-typescript-api-dev-GetAllPersonsLambdaFunctionQualifiedArn"
       }
     },
-    "CreateTodoLambdaFunctionQualifiedArn": {
+    "CreatePersonLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "CreateTodoLambdaVersionXASP5192wCR21kDeCZSW2spvZzTajrBSkq3BwEdYhU"
+        "Ref": "CreatePersonLambdaVersionP6trV8EySbq8ieVA6qYdjfxk2mqweCRoqNhxSJBiN4"
       },
       "Export": {
-        "Name": "sls-aws-serverless-typescript-api-dev-CreateTodoLambdaFunctionQualifiedArn"
+        "Name": "sls-aws-serverless-typescript-api-dev-CreatePersonLambdaFunctionQualifiedArn"
       }
     },
-    "GetTodoLambdaFunctionQualifiedArn": {
+    "GetPersonLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GetTodoLambdaVersionE8UrAWLkP0Xh97xb7Pk6lktuR6dCIdZy7MEiRC18zA"
+        "Ref": "GetPersonLambdaVersionA7ZXffCmxcU6kGd7d9BZWXrktl2KIJugK4ahOm8sVEA"
       },
       "Export": {
-        "Name": "sls-aws-serverless-typescript-api-dev-GetTodoLambdaFunctionQualifiedArn"
+        "Name": "sls-aws-serverless-typescript-api-dev-GetPersonLambdaFunctionQualifiedArn"
       }
     },
-    "UpdateTodoLambdaFunctionQualifiedArn": {
+    "UpdatePersonLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "UpdateTodoLambdaVersionVDAD1c1Pj3YQdlUHsBhnKhoPlfMmuYkH5Agsqso"
+        "Ref": "UpdatePersonLambdaVersione9POOYbAjZckuD44NdHdcEQF8ZncLIMeh4DXUEA"
       },
       "Export": {
-        "Name": "sls-aws-serverless-typescript-api-dev-UpdateTodoLambdaFunctionQualifiedArn"
+        "Name": "sls-aws-serverless-typescript-api-dev-UpdatePersonLambdaFunctionQualifiedArn"
       }
     },
-    "DeleteTodoLambdaFunctionQualifiedArn": {
+    "DeletePersonLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "DeleteTodoLambdaVersionlgAsU51djBs58IU60SiryGSQF1gcQovPswjRv2Hvi4"
+        "Ref": "DeletePersonLambdaVersionfW53KqPpbs1iQTtUsBdqsve2Ecf3ihso3dHc7JAXoQ"
       },
       "Export": {
-        "Name": "sls-aws-serverless-typescript-api-dev-DeleteTodoLambdaFunctionQualifiedArn"
+        "Name": "sls-aws-serverless-typescript-api-dev-DeletePersonLambdaFunctionQualifiedArn"
+      }
+    },
+    "SwapiLambdaFunctionQualifiedArn": {
+      "Description": "Current Lambda function version",
+      "Value": {
+        "Ref": "SwapiLambdaVersionf9wzHJ7n3ztXf96M8IwmmmV0S57kSU1zxuHBxpEuIFg"
+      },
+      "Export": {
+        "Name": "sls-aws-serverless-typescript-api-dev-SwapiLambdaFunctionQualifiedArn"
       }
     },
     "ServiceEndpoint": {

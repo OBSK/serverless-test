@@ -1,11 +1,9 @@
 import type { AWS } from '@serverless/typescript';
-
-import { createTodo, getTodo, getAllTodos, updateTodo, deleteTodo } from '@functions/todo';
-
+import { createPerson, getPerson, getAllPersons, updatePerson, deletePerson, swapi } from '@functions/person';
 const serverlessConfiguration: AWS = {
   service: 'aws-serverless-typescript-api',
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild', 'serverless-offline', 'serverless-dynamodb-local'],
+  plugins: ['serverless-esbuild', 'serverless-offline', 'serverless-dynamodb'],
   provider: {
     name: 'aws',
     runtime: 'nodejs14.x',
@@ -30,14 +28,13 @@ const serverlessConfiguration: AWS = {
             "dynamodb:UpdateItem",
             "dynamodb:DeleteItem",
           ],
-          Resource: "arn:aws:dynamodb:us-west-2:*:table/TodosTable",
+          Resource: "arn:aws:dynamodb:us-west-2:*:table/PersonsTable",
         }],
       },
-
     },
   },
   // import the function via paths
-  functions: { getAllTodos, createTodo, getTodo, updateTodo, deleteTodo },
+  functions: { getAllPersons, createPerson, getPerson, updatePerson, deletePerson, swapi },
   package: { individually: true },
   custom:{
     esbuild: {
@@ -61,27 +58,27 @@ const serverlessConfiguration: AWS = {
   },
   resources: {
     Resources: {
-      TodosTable: {
+      PersonsTable: {
         Type: "AWS::DynamoDB::Table",
         Properties: {
-          TableName: "TodosTable",
+          TableName: "PersonsTable",
           AttributeDefinitions: [{
-            AttributeName: "todosId",
+            AttributeName: "personId",
             AttributeType: "S",
           }],
           KeySchema: [{
-            AttributeName: "todosId",
+            AttributeName: "personId",
             KeyType: "HASH"
           }],
           ProvisionedThroughput: {
             ReadCapacityUnits: 1,
             WriteCapacityUnits: 1
           },
-          
+
         }
       }
     }
   }
 };
-
 module.exports = serverlessConfiguration;
+
